@@ -20,7 +20,6 @@ public class ChatClient {
         if (client.connect()){
             System.out.println("Connected successfull!");
             client.send("hello server");
-
         }else{
 
         }

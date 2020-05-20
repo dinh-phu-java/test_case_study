@@ -19,7 +19,7 @@ public class ServerMain {
                 while ((line=reader.readLine())!=null ){
                     System.out.println(line);
                 }
-
+                clientSocket.close();
             }
 
     }
