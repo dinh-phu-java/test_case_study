@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ChatClient {
     private String serverName;
@@ -19,7 +20,14 @@ public class ChatClient {
         ChatClient client= new ChatClient("localhost",9000);
         if (client.connect()){
             System.out.println("Connected successfull!");
-            client.send("hello server");
+            Scanner in =new Scanner(System.in);
+            String cmd="";
+            while(!("quit".equals(cmd))){
+                cmd=in.nextLine();
+                String msg="From client 1: "+ cmd+"\n\r";
+                client.send(msg);
+            }
+            client.close();
         }else{
 
         }
@@ -38,8 +46,9 @@ public class ChatClient {
     }
     public void send(String msg){
         try {
+
             this.outputStream.write(msg.getBytes());
-            this.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
