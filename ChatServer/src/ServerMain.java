@@ -16,16 +16,7 @@ public class ServerMain {
 
                 ServerWorker worker = new ServerWorker(clientSocket);
                 worker.start();
-
-//                OutputStream serverOut= clientSocket.getOutputStream();
-//                for (int i =0;i<10;i++){
-//                    try{
-//                        serverOut.write(("Times now is "+new Date()+"\n\r").getBytes());
-//                        Thread.sleep(1000);
-//                    }catch(Exception e){
-//                        e.printStackTrace();
-//                    }
-//                }
+                
 
             }
     }

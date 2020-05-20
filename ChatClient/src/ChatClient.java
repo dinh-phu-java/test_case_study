@@ -29,7 +29,7 @@ public class ChatClient {
         if (client.connect()) {
             try {
                 System.out.println("Connected successfull with port: " + client.getLocalPort());
-                //writeDataToServer(client);
+
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
