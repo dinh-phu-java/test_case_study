@@ -24,7 +24,7 @@ public class ServerWorker extends Thread{
         BufferedReader reader= new BufferedReader(new InputStreamReader(inputStream));
         String line;
         while ((line=reader.readLine())!=null ){
-            System.out.println(line);
+            outputStream.write((line+"\n\r").getBytes());
         }
         clientSocket.close();
     }
