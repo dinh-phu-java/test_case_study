@@ -21,15 +21,20 @@ public class ChatClient {
         if (client.connect()){
             System.out.println("Connected successfull!");
             Scanner in =new Scanner(System.in);
-            String cmd="";
-            while(!("quit".equals(cmd))){
-                cmd=in.nextLine();
-                String msg="From client 1: "+ cmd+"\n\r";
-                client.send(msg);
-            }
+            writeDataToServer(client, in);
+
             client.close();
         }else{
 
+        }
+    }
+
+    private static void writeDataToServer(ChatClient client, Scanner in) {
+        String cmd="";
+        while(!("quit".equals(cmd))){
+            cmd=in.nextLine();
+            String msg="From client 1: "+ cmd+"\n\r";
+            client.send(msg);
         }
     }
 
