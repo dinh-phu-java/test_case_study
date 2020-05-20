@@ -1,15 +1,17 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ChatClient {
+public class ChatClient2 {
     private String serverName;
     private int serverPort;
     private InputStream inputStream;
     private OutputStream outputStream;
     private Socket socket;
 
-    public ChatClient(String serverName, int serverPort) {
+    public ChatClient2(String serverName, int serverPort) {
         this.serverName=serverName;
         this.serverPort=serverPort;
     }
@@ -19,7 +21,7 @@ public class ChatClient {
     }
 
     public static void main(String[] args) {
-        ChatClient client= new ChatClient("localhost",9000);
+        ChatClient2 client= new ChatClient2("localhost",9000);
         if (client.connect()){
             try{
                 System.out.println("Connected successfull with port: "+client.getLocalPort());
@@ -34,16 +36,13 @@ public class ChatClient {
         }
     }
 
-    private String getLocalPort() {
-        return String.valueOf(this.socket.getLocalPort());
-    }
 
 
-    private static void writeDataToServer(ChatClient client, Scanner in) {
+    private static void writeDataToServer(ChatClient2 client, Scanner in) {
         String cmd="";
         while(!("quit".equals(cmd))){
             cmd=in.nextLine();
-            String msg="From client 1: "+ cmd+"\n\r";
+            String msg="From client 2: "+ cmd+"\n\r";
             client.send(msg);
         }
     }
@@ -74,5 +73,8 @@ public class ChatClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private String getLocalPort() {
+        return String.valueOf(this.socket.getLocalPort());
     }
 }
