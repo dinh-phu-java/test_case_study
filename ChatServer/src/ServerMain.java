@@ -12,15 +12,28 @@ public class ServerMain {
                 System.out.println("wating for connecting");
                 Socket clientSocket=serverSocket.accept();
                 System.out.println("Connected Successfull with: "+clientSocket.getRemoteSocketAddress());
-                InputStream inputStream=clientSocket.getInputStream();
-                OutputStream outputStream=clientSocket.getOutputStream();
-                BufferedReader reader= new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                while ((line=reader.readLine())!=null ){
-                    System.out.println(line);
-                }
-                clientSocket.close();
+                Thread t1= new Thread(){
+                    @Override
+                    public void run(){
+                        try {
+                            handleSocket(clientSocket);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                t1.start();
             }
+    }
 
+    private static void handleSocket(Socket clientSocket) throws IOException {
+        InputStream inputStream=clientSocket.getInputStream();
+        OutputStream outputStream=clientSocket.getOutputStream();
+        BufferedReader reader= new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line=reader.readLine())!=null ){
+            System.out.println(line);
+        }
+        clientSocket.close();
     }
 }
