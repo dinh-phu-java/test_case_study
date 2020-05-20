@@ -4,8 +4,10 @@ import java.net.Socket;
 public class ServerWorker extends Thread{
 
     private final Socket clientSocket;
+    private final Server server;
 
-    public ServerWorker(Socket clientSocket) {
+    public ServerWorker(Server server, Socket clientSocket) {
+        this.server=server;
         this.clientSocket=clientSocket;
     }
 

@@ -20,6 +20,10 @@ public class ChatClient {
         return this.inputStream;
     }
 
+    private String getLocalPort() {
+        return String.valueOf(this.socket.getLocalPort());
+    }
+
     private Socket getSocket() {
         return this.socket;
     }
@@ -33,25 +37,12 @@ public class ChatClient {
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
-                        try{
-                            InputStream inputStream = client.getInputStream();
-                            int bytes;
-                            while ((bytes = inputStream.read()) != -1) {
-                                if (!(bytes == 10)) {
-                                    System.out.print((char) bytes);
-                                } else {
-                                    System.out.println();
-                                }
-                            }
-                            client.close();
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
+                        readDataFromServer(client);
                     }
                 };
-                Thread writeThread=new Thread(){
+                Thread writeThread = new Thread() {
                     @Override
-                    public void run(){
+                    public void run() {
                         writeDataToServer(client);
                     }
                 };
@@ -65,9 +56,23 @@ public class ChatClient {
         }
     }
 
-    private String getLocalPort() {
-        return String.valueOf(this.socket.getLocalPort());
+    private static void readDataFromServer(ChatClient client) {
+        try {
+            InputStream inputStream = client.getInputStream();
+            int bytes;
+            while ((bytes = inputStream.read()) != -1) {
+                if (!(bytes == 10)) {
+                    System.out.print((char) bytes);
+                } else {
+                    System.out.println();
+                }
+            }
+            client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     private static void writeDataToServer(ChatClient client) {
         Scanner in = new Scanner(System.in);
