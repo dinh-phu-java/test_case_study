@@ -96,12 +96,12 @@ public class ServerWorker extends Thread {
                 String onlineAll;
                 for (ServerWorker worker : workerList) {
                     if (worker.getUser() != null) {
-                        onlineAll = "Online " + worker.getUser();
+                        onlineAll = "online " + worker.getUser();
                         this.sendMessage(onlineAll);
                     }
                 }
 
-                String onlineMsg = "Online: " + this.user;
+                String onlineMsg = "online: " + this.user;
                 for (ServerWorker worker : workerList) {
                     if (worker.getUser() != null) {
                         if (this.user != worker.getUser()) {
@@ -127,7 +127,7 @@ public class ServerWorker extends Thread {
         String offLineUser = this.getUser();
         for (ServerWorker worker : workerList) {
             if (worker.getUser() != null) {
-                String offlineMsg = "Offline " + offLineUser;
+                String offlineMsg = "offline " + offLineUser;
                 worker.sendMessage(offlineMsg);
             }
         }
