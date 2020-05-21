@@ -48,22 +48,15 @@ public class ServerWorker extends Thread {
                     break;
                 } else if ("login".equalsIgnoreCase(cmd)) {
                     handleLogin(tokens);
-                }else if("msg".equalsIgnoreCase(cmd)){
-                    String[] tokensMsg=StringUtils.split(line,null,3);
+                } else if ("msg".equalsIgnoreCase(cmd)) {
+                    String[] tokensMsg = StringUtils.split(line, null, 3);
                     handleDirectMessage(tokensMsg);
-                }
-                else {
-                    if(getUser()!=null){
-                        ArrayList<ServerWorker> workerList = this.server.getWorkerList();
-                        for (ServerWorker worker : workerList) {
-                            if(worker.getUser() != null ){
-                                if(worker.getUser() != this.user){
-                                    worker.sendMessage(line);
-                                }
-                            }
-                        }
-                    }else{
-                        String msg ="Please Login!";
+                } else {
+                    if (getUser() != null) {
+//
+                        sendMessage(line);
+                    } else {
+                        String msg = "Please Login!";
                         sendMessage(msg);
                     }
                 }
@@ -73,13 +66,14 @@ public class ServerWorker extends Thread {
     }
 
     private void handleDirectMessage(String[] tokensMsg) {
-        String sendToUser=tokensMsg[1];
-        String bodyMessage=tokensMsg[2];
+        String sendToUser = tokensMsg[1];
+        String bodyMessage = tokensMsg[2];
         ArrayList<ServerWorker> workerList = this.server.getWorkerList();
-        for (ServerWorker worker : workerList){
-            if(worker.getUser() != null){
-                if(sendToUser.equalsIgnoreCase(worker.getUser())){
-                    String msg= this.user+" typed: "+bodyMessage;;
+        for (ServerWorker worker : workerList) {
+            if (worker.getUser() != null) {
+                if (sendToUser.equalsIgnoreCase(worker.getUser())) {
+                    String msg = this.user + " typed: " + bodyMessage;
+                    ;
                     worker.sendMessage(msg);
                 }
             }
@@ -95,22 +89,22 @@ public class ServerWorker extends Thread {
                 String msg = "Login Successful with: " + user;
                 System.out.println(msg);
                 this.user = user;
-                this.sendMessage(msg);
+                this.sendMessage("ok login");
 
                 ArrayList<ServerWorker> workerList = this.server.getWorkerList();
 
                 String onlineAll;
-                for (ServerWorker worker : workerList){
-                    if(worker.getUser() != null){
-                        onlineAll="Online "+worker.getUser();
+                for (ServerWorker worker : workerList) {
+                    if (worker.getUser() != null) {
+                        onlineAll = "Online " + worker.getUser();
                         this.sendMessage(onlineAll);
                     }
                 }
 
-                String onlineMsg="Online: "+this.user;
-                for (ServerWorker worker : workerList){
-                    if (worker.getUser()!=null){
-                        if(this.user != worker.getUser()){
+                String onlineMsg = "Online: " + this.user;
+                for (ServerWorker worker : workerList) {
+                    if (worker.getUser() != null) {
+                        if (this.user != worker.getUser()) {
                             worker.sendMessage(onlineMsg);
                         }
                     }
@@ -118,7 +112,7 @@ public class ServerWorker extends Thread {
             } else {
                 this.sendMessage("Incorrect User or Password\n\r");
             }
-        }else{
+        } else {
             this.sendMessage("Please filled user and password\n\r");
         }
     }
@@ -127,13 +121,13 @@ public class ServerWorker extends Thread {
 
         System.out.println("old worker size: " + this.server.getWorkerList().size());
         this.server.removeWorker(this);
-        ArrayList<ServerWorker> workerList=this.server.getWorkerList();
+        ArrayList<ServerWorker> workerList = this.server.getWorkerList();
         System.out.println("new worker size: " + workerList.size());
 
-        String offLineUser=this.getUser();
-        for (ServerWorker worker : workerList){
-            if(worker.getUser()!=null){
-                String offlineMsg="Offline "+offLineUser;
+        String offLineUser = this.getUser();
+        for (ServerWorker worker : workerList) {
+            if (worker.getUser() != null) {
+                String offlineMsg = "Offline " + offLineUser;
                 worker.sendMessage(offlineMsg);
             }
         }

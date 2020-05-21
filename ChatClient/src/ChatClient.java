@@ -34,7 +34,13 @@ public class ChatClient {
         if (client.connect()) {
             try {
                 System.out.println("Connected successfull with port: " + client.getLocalPort());
-                client.login("guest","guest");
+
+                if(client.login("guest","guest")) {
+                    System.out.println("login successful");
+                }else{
+                    System.err.println("Login failed");
+                }
+
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
@@ -57,12 +63,18 @@ public class ChatClient {
         }
     }
 
-    private void login(String user, String password) throws IOException {
+    private boolean login(String user, String password) throws IOException {
 
         String cmd ="login "+user+" "+password+"\n";
         this.send(cmd);
         String response=this.bufferedRead.readLine();
-        System.out.println("Response Line "+response);
+//        System.out.println("Response Line "+response);
+        if("ok login".equals(response)){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     private static void readDataFromServer(ChatClient client) {
