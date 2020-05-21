@@ -6,6 +6,9 @@ public class ServerWorker extends Thread{
 
     private final Socket clientSocket;
     private final Server server;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+
 
     public ServerWorker(Server server, Socket clientSocket) {
         this.server=server;
@@ -22,8 +25,8 @@ public class ServerWorker extends Thread{
     }
 
     private void handleSocket() throws IOException {
-        InputStream inputStream=clientSocket.getInputStream();
-        OutputStream outputStream=clientSocket.getOutputStream();
+         this.inputStream=clientSocket.getInputStream();
+         this.outputStream=clientSocket.getOutputStream();
         BufferedReader reader= new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
         String line;
         while ((line=reader.readLine())!=null ){
@@ -33,7 +36,10 @@ public class ServerWorker extends Thread{
                 handleLogoff();
                 break;
             }else{
-                
+                ArrayList<ServerWorker> workerList= this.server.getWorkerList();
+                for (ServerWorker worker : workerList){
+                    worker.sendMessage(line);
+                }
             }
         }
         clientSocket.close();
@@ -43,6 +49,13 @@ public class ServerWorker extends Thread{
             System.out.println("worker size: "+this.server.getWorkerList().size());
             this.server.removeWorker(this);
             System.out.println("new worker size: "+this.server.getWorkerList().size());
+    }
+    public void sendMessage(String msg){
+        try {
+            this.outputStream.write((msg+"\n\r").getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
