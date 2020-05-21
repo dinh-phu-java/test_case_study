@@ -10,6 +10,7 @@ public class ChatClient {
     private InputStream inputStream;
     private OutputStream outputStream;
     private Socket socket;
+    private BufferedReader bufferedRead;
 
     public ChatClient(String serverName, int serverPort) {
         this.serverName = serverName;
@@ -33,7 +34,7 @@ public class ChatClient {
         if (client.connect()) {
             try {
                 System.out.println("Connected successfull with port: " + client.getLocalPort());
-                client.login("guest","tesmp");
+                client.login("guest","guest");
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
@@ -56,9 +57,12 @@ public class ChatClient {
         }
     }
 
-    private void login(String user, String password) {
+    private void login(String user, String password) throws IOException {
+
         String cmd ="login "+user+" "+password+"\n";
         this.send(cmd);
+        String response=this.bufferedRead.readLine();
+        System.out.println("Response Line "+response);
     }
 
     private static void readDataFromServer(ChatClient client) {
@@ -101,6 +105,7 @@ public class ChatClient {
             this.socket = new Socket(serverName, serverPort);
             this.inputStream = socket.getInputStream();
             this.outputStream = socket.getOutputStream();
+            this.bufferedRead =new BufferedReader(new InputStreamReader(this.inputStream));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
