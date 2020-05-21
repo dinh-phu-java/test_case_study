@@ -53,16 +53,19 @@ public class ServerWorker extends Thread {
                     handleDirectMessage(tokensMsg);
                 }
                 else {
-
-                    ArrayList<ServerWorker> workerList = this.server.getWorkerList();
-                    for (ServerWorker worker : workerList) {
+                    if(getUser()!=null){
+                        ArrayList<ServerWorker> workerList = this.server.getWorkerList();
+                        for (ServerWorker worker : workerList) {
                             if(worker.getUser() != null ){
                                 if(worker.getUser() != this.user){
                                     worker.sendMessage(line);
                                 }
                             }
+                        }
+                    }else{
+                        String msg ="Please Login!";
+                        sendMessage(msg);
                     }
-
                 }
             }
         }
