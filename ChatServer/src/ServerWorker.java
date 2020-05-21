@@ -84,7 +84,6 @@ public class ServerWorker extends Thread {
                 }
             }
         }
-
     }
 
     private void handleLogin(String[] tokens) {
@@ -138,7 +137,6 @@ public class ServerWorker extends Thread {
                 worker.sendMessage(offlineMsg);
             }
         }
-
     }
 
     public void sendMessage(String msg) {

@@ -33,6 +33,7 @@ public class ChatClient {
         if (client.connect()) {
             try {
                 System.out.println("Connected successfull with port: " + client.getLocalPort());
+                client.login("guest","tesmp");
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
@@ -53,6 +54,11 @@ public class ChatClient {
         } else {
             System.out.println("Can't connect to server");
         }
+    }
+
+    private void login(String user, String password) {
+        String cmd ="login "+user+" "+password+"\n";
+        this.send(cmd);
     }
 
     private static void readDataFromServer(ChatClient client) {
