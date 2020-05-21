@@ -72,7 +72,7 @@ public class ServerWorker extends Thread {
         for (ServerWorker worker : workerList) {
             if (worker.getUser() != null) {
                 if (sendToUser.equalsIgnoreCase(worker.getUser())) {
-                    String msg = this.user + " typed: " + bodyMessage;
+                    String msg = "msg " + this.user+" " + bodyMessage;
                     worker.sendMessage(msg);
                 }
             }
@@ -100,7 +100,7 @@ public class ServerWorker extends Thread {
                     }
                 }
 
-                String onlineMsg = "online: " + this.user;
+                String onlineMsg = "online " + this.user;
                 for (ServerWorker worker : workerList) {
                     if (worker.getUser() != null) {
                         if (this.user != worker.getUser()) {
