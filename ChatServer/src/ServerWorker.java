@@ -70,6 +70,17 @@ public class ServerWorker extends Thread {
     }
 
     private void handleDirectMessage(String[] tokensMsg) {
+        String sendToUser=tokensMsg[1];
+        String bodyMessage=tokensMsg[2];
+        ArrayList<ServerWorker> workerList = this.server.getWorkerList();
+        for (ServerWorker worker : workerList){
+            if(worker.getUser() != null){
+                if(sendToUser.equalsIgnoreCase(worker.getUser())){
+                    String msg= this.user+" typed: "+bodyMessage;;
+                    worker.sendMessage(msg);
+                }
+            }
+        }
 
     }
 
@@ -111,9 +122,20 @@ public class ServerWorker extends Thread {
     }
 
     private void handleLogoff() {
+
         System.out.println("old worker size: " + this.server.getWorkerList().size());
         this.server.removeWorker(this);
-        System.out.println("new worker size: " + this.server.getWorkerList().size());
+        ArrayList<ServerWorker> workerList=this.server.getWorkerList();
+        System.out.println("new worker size: " + workerList.size());
+
+        String offLineUser=this.getUser();
+        for (ServerWorker worker : workerList){
+            if(worker.getUser()!=null){
+                String offlineMsg="Offline "+offLineUser;
+                worker.sendMessage(offlineMsg);
+            }
+        }
+
     }
 
     public void sendMessage(String msg) {
