@@ -37,7 +37,7 @@ public class ServerWorker extends Thread {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         String line;
         while ((line = reader.readLine()) != null) {
-            outputStream.write((line + "\n\r").getBytes());
+//            outputStream.write((line + "\n\r").getBytes());
             System.out.println(line);
             String[] tokens = StringUtils.split(line);
 
@@ -48,7 +48,11 @@ public class ServerWorker extends Thread {
                     break;
                 } else if ("login".equalsIgnoreCase(cmd)) {
                     handleLogin(tokens);
-                } else {
+                }else if("msg".equalsIgnoreCase(cmd)){
+                    String[] tokensMsg=StringUtils.split(line,null,3);
+                    handleDirectMessage(tokensMsg);
+                }
+                else {
 
                     ArrayList<ServerWorker> workerList = this.server.getWorkerList();
                     for (ServerWorker worker : workerList) {
@@ -58,10 +62,15 @@ public class ServerWorker extends Thread {
                                 }
                             }
                     }
+
                 }
             }
         }
         clientSocket.close();
+    }
+
+    private void handleDirectMessage(String[] tokensMsg) {
+
     }
 
     private void handleLogin(String[] tokens) {
@@ -94,13 +103,15 @@ public class ServerWorker extends Thread {
                     }
                 }
             } else {
-
+                this.sendMessage("Incorrect User or Password\n\r");
             }
+        }else{
+            this.sendMessage("Please filled user and password\n\r");
         }
     }
 
     private void handleLogoff() {
-        System.out.println("worker size: " + this.server.getWorkerList().size());
+        System.out.println("old worker size: " + this.server.getWorkerList().size());
         this.server.removeWorker(this);
         System.out.println("new worker size: " + this.server.getWorkerList().size());
     }
