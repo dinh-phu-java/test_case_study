@@ -51,6 +51,11 @@ public class ChatClient {
 
     }
 
+    private void logoff() throws IOException{
+        String cmd = "quit\n";
+        this.send(cmd);
+    }
+
     private void startMessageReader() {
         Thread t= new Thread(){
             @Override
@@ -198,26 +203,12 @@ public class ChatClient {
                 } else {
                     System.err.println("Login failed");
                 }
-
-//                Thread readThread = new Thread() {
-//                    @Override
-//                    public void run() {
-//                        client.readDataFromServer(client);
-//                    }
-//                };
-//                Thread writeThread = new Thread() {
-//                    @Override
-//                    public void run() {
-//                        client.writeDataToServer(client);
-//                    }
-//                };
-//                readThread.start();
-//                writeThread.start();
+                client.logoff();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Can't connect to server");
+            System.out.println("Connect failed.");
         }
     }
 
