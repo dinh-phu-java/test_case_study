@@ -200,6 +200,7 @@ public class ChatClient {
 
                 if (client.login("guest", "guest")) {
                     System.out.println("login successful");
+                    client.msg("jim","hello Jim from ChatClient");
                 } else {
                     System.err.println("Login failed");
                 }
@@ -210,6 +211,11 @@ public class ChatClient {
         } else {
             System.out.println("Connect failed.");
         }
+    }
+
+    private void msg(String sendTo, String msgBody) {
+        String cmd= "msg " + sendTo + " " + msgBody+"\n\r";
+        this.send(cmd);
     }
 
 }

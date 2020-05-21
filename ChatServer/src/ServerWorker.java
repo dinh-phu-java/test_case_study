@@ -73,7 +73,6 @@ public class ServerWorker extends Thread {
             if (worker.getUser() != null) {
                 if (sendToUser.equalsIgnoreCase(worker.getUser())) {
                     String msg = this.user + " typed: " + bodyMessage;
-                    ;
                     worker.sendMessage(msg);
                 }
             }
