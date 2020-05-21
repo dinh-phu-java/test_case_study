@@ -73,16 +73,22 @@ public class ChatClient {
         }
     }
 
-
     private static void writeDataToServer(ChatClient client) {
         Scanner in = new Scanner(System.in);
         String cmd = "";
-        while (!("quit".equals(cmd))) {
-            cmd = in.nextLine();
-            String msg = "From client 1: " + cmd + "\n\r";
-            client.send(msg);
+        try {
+            while (!("quit".equals(cmd))) {
+                cmd = in.nextLine();
+                String msg = cmd + "\n\r";
+                client.send(msg);
+            }
+                Thread.sleep(1000);
+                System.out.println("This client "+client.getLocalPort()+" quit!");
+                client.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        client.close();
+
     }
 
     private boolean connect() {
@@ -99,9 +105,7 @@ public class ChatClient {
 
     public void send(String msg) {
         try {
-
             this.outputStream.write(msg.getBytes());
-
         } catch (IOException e) {
             e.printStackTrace();
         }

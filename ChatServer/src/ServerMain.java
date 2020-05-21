@@ -9,8 +9,5 @@ public class ServerMain {
             int port= 9000;
             Server server= new Server(port);
             server.start();
-
     }
-
-
 }

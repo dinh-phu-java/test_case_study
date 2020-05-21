@@ -9,7 +9,12 @@ public class Server extends Thread{
     public Server(int serverPort) {
         this.serverPort=serverPort;
     }
-
+    public ArrayList<ServerWorker> getWorkerList(){
+        return this.workerList;
+    }
+    public void removeWorker(ServerWorker worker){
+        this.workerList.remove(worker);
+    }
     @Override
     public void run(){
         try{
@@ -20,6 +25,7 @@ public class Server extends Thread{
                 System.out.println("Connected Successfull with: "+clientSocket.getRemoteSocketAddress());
                 ServerWorker worker = new ServerWorker(this,clientSocket);
                 workerList.add(worker);
+                System.out.println("Worker List: "+workerList.size());
                 worker.start();
             }
         }catch (Exception e){

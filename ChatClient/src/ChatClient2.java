@@ -20,6 +20,10 @@ public class ChatClient2 {
         return this.inputStream;
     }
 
+    private String getLocalPort() {
+        return String.valueOf(this.socket.getLocalPort());
+    }
+
     private Socket getSocket() {
         return this.socket;
     }
@@ -29,29 +33,16 @@ public class ChatClient2 {
         if (client.connect()) {
             try {
                 System.out.println("Connected successfull with port: " + client.getLocalPort());
-                //writeDataToServer(client);
+
                 Thread readThread = new Thread() {
                     @Override
                     public void run() {
-                        try{
-                            InputStream inputStream = client.getInputStream();
-                            int bytes;
-                            while ((bytes = inputStream.read()) != -1) {
-                                if (!(bytes == 10)) {
-                                    System.out.print((char) bytes);
-                                } else {
-                                    System.out.println();
-                                }
-                            }
-                            client.close();
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
+                        readDataFromServer(client);
                     }
                 };
-                Thread writeThread=new Thread(){
+                Thread writeThread = new Thread() {
                     @Override
-                    public void run(){
+                    public void run() {
                         writeDataToServer(client);
                     }
                 };
@@ -65,19 +56,39 @@ public class ChatClient2 {
         }
     }
 
-    private String getLocalPort() {
-        return String.valueOf(this.socket.getLocalPort());
+    private static void readDataFromServer(ChatClient2 client) {
+        try {
+            InputStream inputStream = client.getInputStream();
+            int bytes;
+            while ((bytes = inputStream.read()) != -1) {
+                if (!(bytes == 10)) {
+                    System.out.print((char) bytes);
+                } else {
+                    System.out.println();
+                }
+            }
+            client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void writeDataToServer(ChatClient2 client) {
         Scanner in = new Scanner(System.in);
         String cmd = "";
-        while (!("quit".equals(cmd))) {
-            cmd = in.nextLine();
-            String msg = "From client 2: " + cmd + "\n\r";
-            client.send(msg);
+        try {
+            while (!("quit".equals(cmd))) {
+                cmd = in.nextLine();
+                String msg = cmd + "\n\r";
+                client.send(msg);
+            }
+                Thread.sleep(1000);
+                System.out.println("This client "+client.getLocalPort()+" quit!");
+                client.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        client.close();
+
     }
 
     private boolean connect() {
@@ -94,9 +105,7 @@ public class ChatClient2 {
 
     public void send(String msg) {
         try {
-
             this.outputStream.write(msg.getBytes());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
