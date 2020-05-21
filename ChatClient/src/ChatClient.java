@@ -90,7 +90,7 @@ public class ChatClient {
     private void handleOffline(String[] tokens) {
         String login= tokens[1];
         for (UserStatusListener listener  :  userStatusListeners ){
-            listener.online(login);
+            listener.offline(login);
         }
     }
 
