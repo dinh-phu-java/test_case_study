@@ -37,7 +37,7 @@ public class ChatClient {
 
 
 
-    private boolean login(String user, String password) throws IOException {
+    public boolean login(String user, String password) throws IOException {
 
         String cmd = "login " + user + " " + password + "\n";
         this.send(cmd);
@@ -52,7 +52,7 @@ public class ChatClient {
 
     }
 
-    private void logoff() throws IOException{
+    public void logoff() throws IOException{
         String cmd = "quit\n";
         this.send(cmd);
     }
@@ -121,7 +121,7 @@ public class ChatClient {
 
 
 
-    private boolean connect() {
+    public boolean connect() {
         try {
             this.socket = new Socket(serverName, serverPort);
             this.inputStream = socket.getInputStream();
@@ -150,7 +150,7 @@ public class ChatClient {
         }
     }
 
-    private void msg(String sendTo, String msgBody) {
+    public void msg(String sendTo, String msgBody) {
         String cmd= "msg " + sendTo + " " + msgBody+"\n\r";
         this.send(cmd);
     }
@@ -203,7 +203,7 @@ public class ChatClient {
                 } else {
                     System.err.println("Login failed");
                 }
-               // client.logoff();
+                //client.logoff();
             } catch (Exception e) {
                 e.printStackTrace();
             }
