@@ -195,7 +195,7 @@ public class ChatClient {
 
         if (client.connect()) {
             try {
-                System.out.println("Connected successfull with port: " + client.getLocalPort());
+                System.out.println("Connected successful with port: " + client.getLocalPort());
 
                 if (client.login("guest", "guest")) {
                     System.out.println("login successful");

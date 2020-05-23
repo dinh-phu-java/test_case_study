@@ -2,17 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class LoginWindow extends JFrame {
+public class LoginWindow2 extends JFrame {
     private final ChatClient client;
     private JTextField loginField=new JTextField(20);
     private JPasswordField passwordField=new JPasswordField(20);
     private JButton loginButton=new JButton("Login");
     private JButton registerButton= new JButton("Register");
-    public LoginWindow(){
+    public LoginWindow2(){
         super("Window Login");
 
         this.client=new ChatClient("localhost",9000);
@@ -64,7 +62,6 @@ public class LoginWindow extends JFrame {
         gbc.insets=new Insets(5,5,5,5);
         btnPane.add(registerButton,gbc);
 
-
         loginButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -79,7 +76,7 @@ public class LoginWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        LoginWindow loginWindow=new LoginWindow();
+        LoginWindow2 loginWindow=new LoginWindow2();
         loginWindow.setVisible(true);
     }
 
