@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.regex.Pattern;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -19,6 +21,12 @@ public class RegisterWindow extends JFrame {
         setLocation(200,200);
         setResizable(false);
         setLayout(new BorderLayout(10,10));
+        this.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosing(WindowEvent e){
+               callLoginWindow();
+           }
+        });
         JPanel westPanel= new JPanel(new GridLayout(4,1,5,5));
         JLabel fullNameLabel = new JLabel("Full Name");
         JLabel userLabel = new JLabel("User Name");
@@ -84,12 +92,14 @@ public class RegisterWindow extends JFrame {
                 fileManagement.appendDocument(fullname,username,password);
                 JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("them thanh cong");
+                callLoginWindow();
             }
 
         }else{
             System.out.println("File khong ton tai");
             fileManagement.createFile(fullname,username,password);
             JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
+            callLoginWindow();
         }
     }
     public boolean isCheckUserNameSequence(){
@@ -126,7 +136,9 @@ public class RegisterWindow extends JFrame {
         this.confirmPasswordText.setText("");
     }
     public void callLoginWindow(){
-
+        this.setVisible(false);
+        LoginWindow loginWindow=new LoginWindow();
+        loginWindow.setVisible(true);
     }
     public static void main(String[] args){
         RegisterWindow registerWindow=new RegisterWindow();

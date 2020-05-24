@@ -58,7 +58,12 @@ public class LoginWindow extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(5, 5, 5, 5);
         btnPane.add(registerButton, gbc);
-
+        registerButton.addActionListener(new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent ev){
+                callRegisterWindow();
+           }
+        }) ;
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -79,6 +84,13 @@ public class LoginWindow extends JFrame {
 
     }
 
+    public void callRegisterWindow(){
+        this.setVisible(false);
+        this.logoff();
+        RegisterWindow registerWindow=new RegisterWindow();
+        registerWindow.setVisible(true);
+    }
+
     public void logoff() {
         try {
             this.client.logoff();
@@ -86,7 +98,6 @@ public class LoginWindow extends JFrame {
             e.printStackTrace();
         }
     }
-
 
     private void doLogin() {
         String login = loginField.getText();
