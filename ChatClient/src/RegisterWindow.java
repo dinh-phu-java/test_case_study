@@ -46,6 +46,7 @@ public class RegisterWindow extends JFrame {
     public static void main(String[] args){
         RegisterWindow registerWindow=new RegisterWindow();
         registerWindow.setVisible(true);
+
     }
 
 }
