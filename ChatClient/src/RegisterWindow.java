@@ -1,7 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class RegisterWindow extends JFrame {
+
+    private final JTextField userText;
+    private final JPasswordField confirmPasswordText;
+    private final JTextField fullNameText;
+    private final JPasswordField passwordText;
 
     public RegisterWindow(){
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -20,13 +30,13 @@ public class RegisterWindow extends JFrame {
         westPanel.add(confirmPassLabel);
 
         JPanel centerPanel= new JPanel(new GridLayout(4,1,5,5));
-        JTextField fullNameText = new JTextField(15);
-        JTextField userText = new JTextField(15);
-        JPasswordField passworText = new JPasswordField(15);
-        JPasswordField confirmPasswordText = new JPasswordField(15);
+         this.fullNameText = new JTextField(15);
+        this.userText = new JTextField(15);
+         this.passwordText = new JPasswordField(15);
+        this.confirmPasswordText = new JPasswordField(15);
         centerPanel.add(fullNameText);
         centerPanel.add(userText);
-        centerPanel.add(passworText);
+        centerPanel.add(passwordText);
         centerPanel.add(confirmPasswordText);
 
         JPanel bottomPanel= new JPanel(new GridBagLayout());
@@ -38,10 +48,85 @@ public class RegisterWindow extends JFrame {
         registerBTN.setPreferredSize(new Dimension(150,30));
         bottomPanel.add(registerBTN,gbc);
 
+        registerBTN.addActionListener(new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent ev){
+               if(!isCheckUserNameSequence()){
+                   JOptionPane.showMessageDialog(null,"UserName is not correct!","Error",JOptionPane.ERROR_MESSAGE);
+                   clearUserText();
+               }else if(checkPasswordField()){
+                   JOptionPane.showMessageDialog(null,"Password should be the same!","Error",JOptionPane.ERROR_MESSAGE);
+                   clearPassText();
+               } else if(isFieldEmpty()){
+                   JOptionPane.showMessageDialog(null,"All Field should not be empty!","Error",JOptionPane.ERROR_MESSAGE);
+               }
+               else{
+                   handleFileManagement();
+               }
+           }
+        });
+
         getContentPane().add(westPanel,BorderLayout.WEST);
         getContentPane().add(centerPanel,BorderLayout.CENTER);
         getContentPane().add(bottomPanel,BorderLayout.SOUTH);
         setVisible(true);
+    }
+    public void handleFileManagement(){
+        FileManagement fileManagement=new FileManagement();
+        String username=this.userText.getText();
+        String fullname=this.fullNameText.getText();
+        String password=this.passwordText.getText();
+        if (fileManagement.isFileExist()){
+            System.out.println("File ton tai");
+            if(fileManagement.isUserExist(username)){
+                JOptionPane.showMessageDialog(null,"User Already Exist!","Error",JOptionPane.ERROR_MESSAGE);
+            }else{
+                fileManagement.appendDocument(fullname,username,password);
+                JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("them thanh cong");
+            }
+
+        }else{
+            System.out.println("File khong ton tai");
+            fileManagement.createFile(fullname,username,password);
+            JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public boolean isCheckUserNameSequence(){
+        String expression="[a-z0-9]{1,10}";
+        String userName=this.userText.getText();
+        Boolean validUserName= Pattern.matches(expression,userName);
+        return validUserName;
+    }
+    public boolean isFieldEmpty(){
+
+        String fullName=this.fullNameText.getText();
+        String password=this.passwordText.getText();
+        String confirmPassword=this.confirmPasswordText.getText();
+        if(fullName.trim().equals("") || password.trim().equals("") || confirmPassword.trim().equals("") ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean checkPasswordField(){
+        String password=this.passwordText.getText();
+        String confirmPassword=this.confirmPasswordText.getText();
+        if(!password.trim().equals(confirmPassword.trim())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void clearUserText(){
+        this.userText.setText("");
+    }
+    public void clearPassText(){
+        this.passwordText.setText("");
+        this.confirmPasswordText.setText("");
+    }
+    public void callLoginWindow(){
+
     }
     public static void main(String[] args){
         RegisterWindow registerWindow=new RegisterWindow();

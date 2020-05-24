@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <information>
 <user>
-<fullname>Dinh Phu</fullname>
-<username>phu</username>
+<fullname>Nguyen Dinh Phu</fullname>
+<username>dinhphu</username>
 <password>123456</password>
 </user>
 <user>
-<fullname>Hong Lam1</fullname>
-<username>lam1</username>
-<password>123456</password>
-</user>
-<user>
-<fullname>Hong Lam1</fullname>
-<username>lam1</username>
-<password>123456</password>
-</user>
-<user>
-<fullname>Hong Lam1</fullname>
-<username>jim</username>
+<fullname>Tran Hong Lam</fullname>
+<username>honglam</username>
 <password>123456</password>
 </user>
 </information>

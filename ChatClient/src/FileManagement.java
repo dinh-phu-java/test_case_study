@@ -149,24 +149,22 @@ public class FileManagement {
             e.printStackTrace();
             return false;
         }
-
-
     }
 
     public static void main(String[] args) {
-        FileManagement fileManagement=new FileManagement();
-        if (fileManagement.isFileExist()){
-            System.out.println("File ton tai");
-            if(fileManagement.isUserExist("jim")){
-                System.out.println("User already exist. Please register again!");
-            }else{
-                fileManagement.appendDocument("Hong Lam1","jim","123456");
-                System.out.println("them thanh cong");
-            }
-
-        }else{
-            System.out.println("File khong ton tai");
-            fileManagement.createFile("Dinh Phu","phu","123456");
-        }
+//        FileManagement fileManagement=new FileManagement();
+//        if (fileManagement.isFileExist()){
+//            System.out.println("File ton tai");
+//            if(fileManagement.isUserExist("jim")){
+//                System.out.println("User already exist. Please register again!");
+//            }else{
+//                fileManagement.appendDocument("Hong Lam1","jim","123456");
+//                System.out.println("them thanh cong");
+//            }
+//
+//        }else{
+//            System.out.println("File khong ton tai");
+//            fileManagement.createFile("Dinh Phu","phu","123456");
+//        }
     }
 }
