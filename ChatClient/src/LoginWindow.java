@@ -91,6 +91,12 @@ public class LoginWindow extends JFrame {
         registerWindow.setVisible(true);
     }
 
+    public void callLoginWindow(){
+        this.logoff();
+        this.setVisible(false);
+        LoginWindow loginWindow=new LoginWindow();
+        loginWindow.setVisible(true);
+    }
     public void logoff() {
         try {
             this.client.logoff();
@@ -106,8 +112,9 @@ public class LoginWindow extends JFrame {
             String password = passwordField.getText();
             System.out.println(login);
             System.out.println(password);
-            if (client.login(login,password)) {
-                System.out.println(client.login(login,password));
+            boolean checkLogin;
+            if (checkLogin=client.login(login,password)) {
+                System.out.println(checkLogin);
                 UserListPane userListPane = new UserListPane(client);
                 JFrame frame = new JFrame(login.toUpperCase());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,9 +131,8 @@ public class LoginWindow extends JFrame {
 
                 this.setVisible(false);
             } else {
-                System.out.println("why?");
-
                 JOptionPane.showMessageDialog(this, "Invalid user or password!");
+                callLoginWindow();
             }
         } catch (IOException e) {
             e.printStackTrace();
