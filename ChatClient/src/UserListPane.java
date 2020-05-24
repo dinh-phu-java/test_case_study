@@ -25,6 +25,8 @@ public class UserListPane extends JPanel implements UserStatusListener {
                     String login= userListUI.getSelectedValue();
                     MessagePane messagePane=new MessagePane(client,login);
                     JFrame msgFrame= new JFrame("Message: "+login);
+                    Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
+                    msgFrame.setIconImage(img);
                     msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     msgFrame.setSize(500,500);
                     msgFrame.getContentPane().add(messagePane,BorderLayout.CENTER);
@@ -34,24 +36,7 @@ public class UserListPane extends JPanel implements UserStatusListener {
         });
     }
 
-    public static void main(String[] args) {
-        ChatClient client= new ChatClient("localhost",9000);
-        UserListPane userListPane=new UserListPane(client);
-        JFrame frame =new JFrame("User List");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,600);
-        frame.getContentPane().add(userListPane, BorderLayout.CENTER);
-        frame.setVisible(true);
-
-        if(client.connect()){
-            try {
-                client.login("guest","guest");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    
 
     @Override
     public void online(String login) {

@@ -112,11 +112,13 @@ public class LoginWindow extends JFrame {
             String password = passwordField.getText();
             System.out.println(login);
             System.out.println(password);
-            boolean checkLogin;
-            if (checkLogin=client.login(login,password)) {
-                System.out.println(checkLogin);
+
+            if (client.login(login,password)) {
+
                 UserListPane userListPane = new UserListPane(client);
                 JFrame frame = new JFrame(login.toUpperCase());
+                Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
+                frame.setIconImage(img);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(400, 600);
                 frame.setResizable(false);

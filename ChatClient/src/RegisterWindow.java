@@ -16,10 +16,13 @@ public class RegisterWindow extends JFrame {
     private final JPasswordField passwordText;
 
     public RegisterWindow(){
+        super("Register Users");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400,350);
         setLocation(200,200);
         setResizable(false);
+        Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
+        setIconImage(img);
         setLayout(new BorderLayout(10,10));
         this.addWindowListener(new WindowAdapter(){
            @Override
