@@ -1,7 +1,4 @@
-import org.w3c.dom.Attr;
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.print.DocFlavor;
@@ -11,6 +8,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,11 +23,18 @@ import java.util.Set;
 
 public class FileManagement {
     private Path filePath;
-    private int id;
-    private static int nextID=1;
+    private Document document;
+
     public FileManagement(){
         filePath= Paths.get(System.getProperty("user.dir"),"files","users.xml");
-
+        DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder= null;
+        try {
+            builder = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        this.document=builder.newDocument();
     }
 
     public boolean isFileExist(){
@@ -47,9 +54,6 @@ public class FileManagement {
             myFile.setReadable(true);
             myFile.createNewFile();
 
-            DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder=dbFactory.newDocumentBuilder();
-            Document document=builder.newDocument();
 
             Element rootElement=document.createElement("information");
             document.appendChild(rootElement);
@@ -57,9 +61,7 @@ public class FileManagement {
             appendUserInfo(document,rootElement,name,username,pass);
 
 
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }  catch (TransformerConfigurationException e) {
+        }   catch (TransformerConfigurationException e) {
             e.printStackTrace();
         } catch (TransformerException e) {
             e.printStackTrace();
@@ -73,7 +75,7 @@ public class FileManagement {
         try {
             DocumentBuilderFactory dbFactory= DocumentBuilderFactory.newInstance();
             DocumentBuilder builder= dbFactory.newDocumentBuilder();
-            Document document = builder.parse(String.valueOf(filePath));
+            document = builder.parse(String.valueOf(filePath));
             Element rootElement= document.getDocumentElement();
             System.out.println(document.getNodeName());
             System.out.println(rootElement.getTagName());
@@ -123,11 +125,45 @@ public class FileManagement {
 
     }
 
+    public boolean isUserExist(String userName){
+
+        try {
+            DocumentBuilderFactory dbFactory= DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder=dbFactory.newDocumentBuilder();
+            this.document=builder.parse(String.valueOf(filePath));
+            XPath xPath= XPathFactory.newInstance().newXPath();
+            String url = "/information/user/username";
+            NodeList nList=(NodeList)xPath.compile(url).evaluate(document, XPathConstants.NODESET);
+            boolean userExits=false;
+            for(int i =0;i<nList.getLength();i++){
+                Element element = (Element)nList.item(i);
+                System.out.println(element.getTextContent());
+                if(element.getTextContent().equals(userName)){
+                    userExits= true;
+                    break;
+                }
+            }
+            return userExits;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
     public static void main(String[] args) {
         FileManagement fileManagement=new FileManagement();
         if (fileManagement.isFileExist()){
             System.out.println("File ton tai");
-            fileManagement.appendDocument("Hong Lam1","lam1","123456");
+            if(fileManagement.isUserExist("jim")){
+                System.out.println("User already exist. Please register again!");
+            }else{
+                fileManagement.appendDocument("Hong Lam1","jim","123456");
+                System.out.println("them thanh cong");
+            }
+
         }else{
             System.out.println("File khong ton tai");
             fileManagement.createFile("Dinh Phu","phu","123456");
