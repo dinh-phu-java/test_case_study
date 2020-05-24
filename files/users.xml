@@ -3,11 +3,16 @@
 <user>
 <fullname>Dinh Phu</fullname>
 <username>dinhphu</username>
+<password>abc</password>
+</user>
+<user>
+<fullname>Hong Lam</fullname>
+<username>honglam</username>
 <password>123456</password>
 </user>
 <user>
-<fullname>Hong LAm</fullname>
-<username>honglam</username>
+<fullname>Jim Nguyen</fullname>
+<username>jim</username>
 <password>123456</password>
 </user>
 </information>

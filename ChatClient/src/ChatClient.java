@@ -170,45 +170,4 @@ public class ChatClient {
         this.messageListeners.remove(listener);
     }
 
-    public static void main(String[] args) {
-        ChatClient client = new ChatClient("localhost", 9000);
-        UserStatusListener userListener = new UserStatusListener() {
-            @Override
-            public void online(String login) {
-                System.out.println("ONLINE: "+login);
-            }
-
-            @Override
-            public void offline(String login) {
-                System.out.println("OFFLINE: "+login);
-            }
-        };
-        MessageListener messageListener=new MessageListener() {
-            @Override
-            public void onMessage(String fromLogin, String msgBody) {
-                System.out.println("You got a message from "+ fromLogin+ " ===>"+msgBody);
-            }
-        };
-
-        client.addUserStatusListener(userListener);
-        client.addMessageListener(messageListener);
-
-        if (client.connect()) {
-            try {
-                System.out.println("Connected successful with port: " + client.getLocalPort());
-
-                if (client.login("guest", "guest")) {
-                    System.out.println("login successful");
-                    client.msg("jim","hello Jim from ChatClient");
-                } else {
-                    System.err.println("Login failed");
-                }
-                //client.logoff();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Connect failed.");
-        }
-    }
 }

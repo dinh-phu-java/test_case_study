@@ -61,7 +61,12 @@ public class LoginWindow2 extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(5, 5, 5, 5);
         btnPane.add(registerButton, gbc);
-
+        registerButton.addActionListener(new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent ev){
+                callRegisterWindow();
+           }
+        }) ;
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -82,6 +87,13 @@ public class LoginWindow2 extends JFrame {
 
     }
 
+    public void callRegisterWindow(){
+        this.setVisible(false);
+        this.logoff();
+        RegisterWindow registerWindow=new RegisterWindow();
+        registerWindow.setVisible(true);
+    }
+
     public void logoff() {
         try {
             this.client.logoff();
@@ -90,18 +102,20 @@ public class LoginWindow2 extends JFrame {
         }
     }
 
-
     private void doLogin() {
-        String login = loginField.getText();
-        String password = loginField.getText();
 
         try {
-            if (client.login(login, password)) {
-
+            String login = loginField.getText();
+            String password = passwordField.getText();
+            System.out.println(login);
+            System.out.println(password);
+            if (client.login(login,password)) {
+                System.out.println(client.login(login,password));
                 UserListPane userListPane = new UserListPane(client);
                 JFrame frame = new JFrame(login.toUpperCase());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(400, 600);
+                frame.setResizable(false);
                 frame.getContentPane().add(userListPane, BorderLayout.CENTER);
                 frame.addWindowListener(new WindowAdapter(){
                     @Override
@@ -113,6 +127,8 @@ public class LoginWindow2 extends JFrame {
 
                 this.setVisible(false);
             } else {
+                System.out.println("why?");
+
                 JOptionPane.showMessageDialog(this, "Invalid user or password!");
             }
         } catch (IOException e) {

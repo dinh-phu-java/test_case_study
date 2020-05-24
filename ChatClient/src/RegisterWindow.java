@@ -103,7 +103,7 @@ public class RegisterWindow extends JFrame {
         }
     }
     public boolean isCheckUserNameSequence(){
-        String expression="[a-z0-9]{1,10}";
+        String expression="[a-z0-9]{1,20}";
         String userName=this.userText.getText();
         Boolean validUserName= Pattern.matches(expression,userName);
         return validUserName;
@@ -140,6 +140,7 @@ public class RegisterWindow extends JFrame {
         LoginWindow loginWindow=new LoginWindow();
         loginWindow.setVisible(true);
     }
+
     public static void main(String[] args){
         RegisterWindow registerWindow=new RegisterWindow();
         registerWindow.setVisible(true);

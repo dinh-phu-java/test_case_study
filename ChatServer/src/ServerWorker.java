@@ -1,7 +1,17 @@
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ServerWorker extends Thread {
@@ -78,12 +88,44 @@ public class ServerWorker extends Thread {
             }
         }
     }
+    public boolean checkUserAndPassword(String userInput,String passwordInput){
+        try{
+            Path myPath= Paths.get(System.getProperty("user.dir"),"files","users.xml");
+            DocumentBuilderFactory dbFactory= DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder=dbFactory.newDocumentBuilder();
+            Document doc=builder.parse(String.valueOf(myPath));
 
+            String express="information/user";
+            XPath xPath= XPathFactory.newInstance().newXPath();
+
+            NodeList nList= (NodeList)xPath.compile(express).evaluate(doc, XPathConstants.NODESET);
+            boolean loginStatus=false;
+            for(int i=0;i< nList.getLength();i++){
+                Element element=(Element)nList.item(i);
+                String elementUserName= element.getElementsByTagName("username").item(0).getTextContent();
+                String passwordUserName=element.getElementsByTagName("password").item(0).getTextContent();
+
+                if(elementUserName.equals(userInput.trim()) && passwordUserName.equals(passwordInput.trim())){
+                    loginStatus= true;
+                    break;
+                }
+                System.out.println("Login failed with user "+ userInput +" and password "+passwordInput);
+            }
+            System.out.println(loginStatus);
+            return loginStatus;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
     private void handleLogin(String[] tokens) {
         if (tokens.length == 3) {
             String user = tokens[1];
             String password = tokens[2];
-            if (("guest".equals(user) && "guest".equals(password)) || ("jim".equals(user) && "jim".equals(password)) || ("phu".equals(user) && "phu".equals(password))) {
+
+
+            if (checkUserAndPassword(user,password)) {
 
                 String msg = "Login Successful with: " + user;
                 System.out.println(msg);

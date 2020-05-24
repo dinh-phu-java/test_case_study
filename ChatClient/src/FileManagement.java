@@ -151,7 +151,7 @@ public class FileManagement {
         }
     }
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        FileManagement fileManagement=new FileManagement();
 //        if (fileManagement.isFileExist()){
 //            System.out.println("File ton tai");
@@ -166,5 +166,5 @@ public class FileManagement {
 //            System.out.println("File khong ton tai");
 //            fileManagement.createFile("Dinh Phu","phu","123456");
 //        }
-    }
+//    }
 }

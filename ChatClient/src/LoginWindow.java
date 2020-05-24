@@ -100,16 +100,19 @@ public class LoginWindow extends JFrame {
     }
 
     private void doLogin() {
-        String login = loginField.getText();
-        String password = loginField.getText();
 
         try {
-            if (client.login(login, password)) {
-
+            String login = loginField.getText();
+            String password = passwordField.getText();
+            System.out.println(login);
+            System.out.println(password);
+            if (client.login(login,password)) {
+                System.out.println(client.login(login,password));
                 UserListPane userListPane = new UserListPane(client);
                 JFrame frame = new JFrame(login.toUpperCase());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(400, 600);
+                frame.setResizable(false);
                 frame.getContentPane().add(userListPane, BorderLayout.CENTER);
                 frame.addWindowListener(new WindowAdapter(){
                     @Override
@@ -121,6 +124,8 @@ public class LoginWindow extends JFrame {
 
                 this.setVisible(false);
             } else {
+                System.out.println("why?");
+
                 JOptionPane.showMessageDialog(this, "Invalid user or password!");
             }
         } catch (IOException e) {
