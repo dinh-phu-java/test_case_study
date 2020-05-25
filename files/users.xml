@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <information>
 <user>
-<fullname>anh a</fullname>
-<username>a</username>
-<password>a</password>
+<fullname>Nguyen Phu</fullname>
+<username>dinhphu</username>
+<password>abc</password>
+</user>
+<user>
+<fullname>Hong Lam</fullname>
+<username>honglam</username>
+<password>123</password>
 </user>
 </information>

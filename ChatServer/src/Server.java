@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class Server extends Thread{
                 workerList.add(worker);
                 System.out.println("Worker List: "+workerList.size());
                 worker.start();
+
+
+
             }
         }catch (Exception e){
             e.printStackTrace();
