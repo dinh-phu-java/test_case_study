@@ -134,16 +134,16 @@ public class FileManagement {
             XPath xPath= XPathFactory.newInstance().newXPath();
             String url = "/information/user/username";
             NodeList nList=(NodeList)xPath.compile(url).evaluate(document, XPathConstants.NODESET);
-            boolean userExits=false;
+            boolean userExist=false;
             for(int i =0;i<nList.getLength();i++){
                 Element element = (Element)nList.item(i);
                 System.out.println(element.getTextContent());
                 if(element.getTextContent().equals(userName)){
-                    userExits= true;
+                    userExist= true;
                     break;
                 }
             }
-            return userExits;
+            return userExist;
 
         } catch (Exception e) {
             e.printStackTrace();

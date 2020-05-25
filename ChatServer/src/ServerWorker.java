@@ -61,7 +61,11 @@ public class ServerWorker extends Thread {
                 } else if ("msg".equalsIgnoreCase(cmd)) {
                     String[] tokensMsg = StringUtils.split(line, null, 3);
                     handleDirectMessage(tokensMsg);
-                } else {
+                }else if("check_register".equalsIgnoreCase(cmd)){
+                    String[] tokensMsg = StringUtils.split(line, null, 4);
+                    handleCheckRegisterUser(tokensMsg);
+                }
+                else {
                     if (getUser() != null) {
 //
                         sendMessage(line);
@@ -73,6 +77,31 @@ public class ServerWorker extends Thread {
             }
         }
         clientSocket.close();
+    }
+    public void handleCheckRegisterUser(String[] tokensMsg){
+        if(tokensMsg!=null && tokensMsg.length==4){
+            String registerFullName=tokensMsg[3];
+            String registerUserName=tokensMsg[1];
+            String registerPassword=tokensMsg[2];
+
+            FileManagement fileManagement=new FileManagement();
+            if (fileManagement.isFileExist()){
+                System.out.println("File ton tai");
+                if(fileManagement.isUserExist(registerUserName)){
+                    System.out.println("User already exist. Please register again!");
+                }else{
+                    fileManagement.appendDocument(registerFullName,registerUserName,registerPassword);
+                    this.sendMessage("ok register");
+                    System.out.println("them thanh cong");
+                }
+
+            }else{
+                System.out.println("File khong ton tai");
+                fileManagement.createFile(registerFullName,registerUserName,registerPassword);
+                this.sendMessage("ok register");
+
+            }
+        }
     }
 
     private void handleDirectMessage(String[] tokensMsg) {
@@ -123,7 +152,6 @@ public class ServerWorker extends Thread {
         if (tokens.length == 3) {
             String user = tokens[1];
             String password = tokens[2];
-
 
             if (checkUserAndPassword(user,password)) {
 

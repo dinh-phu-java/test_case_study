@@ -25,9 +25,12 @@ public class MessagePane extends JPanel implements MessageListener {
             @Override
             public void actionPerformed(ActionEvent ev){
                 String text=inputField.getText();
-                client.msg(login,text);
-                listModel.addElement("You: "+text);
-                inputField.setText("");
+                if(!text.equals("")){
+                    client.msg(login,text);
+                    listModel.addElement("You: "+text);
+                    inputField.setText("");
+                }
+
             }
         });
     }

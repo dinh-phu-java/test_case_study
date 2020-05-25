@@ -6,13 +6,18 @@
 <password>abc</password>
 </user>
 <user>
-<fullname>Hong Lam</fullname>
-<username>honglam</username>
-<password>123456</password>
+<fullname>Lien Vu</fullname>
+<username>lienvu</username>
+<password>123</password>
 </user>
 <user>
-<fullname>Jim Nguyen</fullname>
-<username>jim</username>
-<password>123456</password>
+<fullname>dinhphu</fullname>
+<username>abc</username>
+<password>Nguyen Dinh Phu</password>
+</user>
+<user>
+<fullname>Dinh Template</fullname>
+<username>dinh</username>
+<password>abc</password>
 </user>
 </information>
