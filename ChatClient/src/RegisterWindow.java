@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -14,9 +15,14 @@ public class RegisterWindow extends JFrame {
     private final JPasswordField confirmPasswordText;
     private final JTextField fullNameText;
     private final JPasswordField passwordText;
+    private final ChatClient client;
 
     public RegisterWindow(){
         super("Register Users");
+
+        this.client = new ChatClient("localhost", 9000);
+        this.client.connect();
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400,350);
         setLocation(200,200);
@@ -62,18 +68,7 @@ public class RegisterWindow extends JFrame {
         registerBTN.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent ev){
-               if(!isCheckUserNameSequence()){
-                   JOptionPane.showMessageDialog(null,"UserName is not correct!","Error",JOptionPane.ERROR_MESSAGE);
-                   clearUserText();
-               }else if(checkPasswordField()){
-                   JOptionPane.showMessageDialog(null,"Password should be the same!","Error",JOptionPane.ERROR_MESSAGE);
-                   clearPassText();
-               } else if(isFieldEmpty()){
-                   JOptionPane.showMessageDialog(null,"All Field should not be empty!","Error",JOptionPane.ERROR_MESSAGE);
-               }
-               else{
-                   handleFileManagement();
-               }
+               doRegisterUser();
            }
         });
 
@@ -82,29 +77,33 @@ public class RegisterWindow extends JFrame {
         getContentPane().add(bottomPanel,BorderLayout.SOUTH);
         setVisible(true);
     }
-    public void handleFileManagement(){
-        FileManagement fileManagement=new FileManagement();
+
+    public void doRegisterUser() {
         String username=this.userText.getText();
         String fullname=this.fullNameText.getText();
         String password=this.passwordText.getText();
-        if (fileManagement.isFileExist()){
-            System.out.println("File ton tai");
-            if(fileManagement.isUserExist(username)){
-                JOptionPane.showMessageDialog(null,"User Already Exist!","Error",JOptionPane.ERROR_MESSAGE);
-            }else{
-                fileManagement.appendDocument(fullname,username,password);
+        System.out.println("access do register");
+        try{
+            if(!isCheckUserNameSequence()){
+                JOptionPane.showMessageDialog(null,"UserName is not correct!","Error",JOptionPane.ERROR_MESSAGE);
+                clearUserText();
+            }else if(checkPasswordField()){
+                JOptionPane.showMessageDialog(null,"Password should be the same!","Error",JOptionPane.ERROR_MESSAGE);
+                clearPassText();
+            } else if(isFieldEmpty()){
+                JOptionPane.showMessageDialog(null,"All Field should not be empty!","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if(this.client.registerUser(fullname,username,password)){
                 JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("them thanh cong");
                 callLoginWindow();
             }
-
-        }else{
-            System.out.println("File khong ton tai");
-            fileManagement.createFile(fullname,username,password);
-            JOptionPane.showMessageDialog(null,"Register Completed","Completed",JOptionPane.INFORMATION_MESSAGE);
-            callLoginWindow();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-    }
+
+
+        }
+
     public boolean isCheckUserNameSequence(){
         String expression="[a-z0-9]{1,20}";
         String userName=this.userText.getText();
@@ -140,6 +139,7 @@ public class RegisterWindow extends JFrame {
     }
     public void callLoginWindow(){
         this.setVisible(false);
+        this.client.logoff();
         LoginWindow loginWindow=new LoginWindow();
         loginWindow.setVisible(true);
     }

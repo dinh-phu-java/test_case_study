@@ -52,7 +52,19 @@ public class ChatClient {
 
     }
 
-    public void logoff() throws IOException{
+    public boolean registerUser(String fullName,String userName,String password) throws IOException {
+        String cmd= "check_register "+userName+" "+password+" "+fullName+"\n\r";
+        this.send(cmd);
+        String response = this.bufferedRead.readLine();
+
+            if("ok register".equals(response)){
+                return true;
+            }else{
+                return false;
+            }
+    }
+
+    public void logoff(){
         String cmd = "quit\n";
         this.send(cmd);
     }
@@ -169,5 +181,6 @@ public class ChatClient {
     public void removeMessageListener(MessageListener listener){
         this.messageListeners.remove(listener);
     }
+
 
 }

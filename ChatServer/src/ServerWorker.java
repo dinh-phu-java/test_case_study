@@ -84,11 +84,14 @@ public class ServerWorker extends Thread {
             String registerUserName=tokensMsg[1];
             String registerPassword=tokensMsg[2];
 
+            System.out.println(registerUserName +" "+registerPassword+" "+registerFullName);
+
             FileManagement fileManagement=new FileManagement();
             if (fileManagement.isFileExist()){
                 System.out.println("File ton tai");
                 if(fileManagement.isUserExist(registerUserName)){
                     System.out.println("User already exist. Please register again!");
+                    this.sendMessage("register failed");
                 }else{
                     fileManagement.appendDocument(registerFullName,registerUserName,registerPassword);
                     this.sendMessage("ok register");

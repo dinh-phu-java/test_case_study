@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <information>
 <user>
-<fullname>Dinh Phu</fullname>
-<username>dinhphu</username>
-<password>abc</password>
-</user>
-<user>
-<fullname>Lien Vu</fullname>
-<username>lienvu</username>
-<password>123</password>
-</user>
-<user>
-<fullname>dinhphu</fullname>
-<username>abc</username>
-<password>Nguyen Dinh Phu</password>
-</user>
-<user>
-<fullname>Dinh Template</fullname>
-<username>dinh</username>
-<password>abc</password>
+<fullname>anh a</fullname>
+<username>a</username>
+<password>a</password>
 </user>
 </information>

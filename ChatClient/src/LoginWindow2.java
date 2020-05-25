@@ -101,11 +101,7 @@ public class LoginWindow2 extends JFrame {
         loginWindow.setVisible(true);
     }
     public void logoff() {
-        try {
-            this.client.logoff();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.client.logoff();
     }
 
     private void doLogin() {
