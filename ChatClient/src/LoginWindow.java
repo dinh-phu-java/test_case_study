@@ -148,9 +148,20 @@ public class LoginWindow extends JFrame {
 //                    busyStatus. addActionListener(this);
                 statusMenu. add(busyStatus);
                 // And finally build a JMenuBar for the application
+
+                JMenu actionMenu = new JMenu("Action" );
+                JMenuItem hideMenu = new JMenuItem("Hide" );
+//                    profile_setting. addActionListener(this);
+                actionMenu. add(hideMenu);
+                JMenuItem quitMenu = new JMenuItem( "Quit" );
+//                    layout_setting. addActionListener(this);
+                actionMenu. add(quitMenu);
+
+
                 JMenuBar mainBar = new JMenuBar();
                 mainBar. add(messengerMenu);
                 mainBar. add(statusMenu);
+                mainBar. add(actionMenu);
 
                 frame.setJMenuBar(mainBar);
                 frame.setVisible(true);

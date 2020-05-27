@@ -16,10 +16,17 @@ public class MessagePane extends JPanel implements MessageListener {
         this.client=client;
         this.login=login;
         this.client.addMessageListener(this);
-        this.inputField.setPreferredSize(new Dimension(500,50));
+
+        this.inputField.setPreferredSize(new Dimension(450,50));
+        JPanel bottomPanel= new JPanel(new FlowLayout(5,5,5));
+        JButton sendBtn= new JButton("Send");
+        sendBtn.setPreferredSize(new Dimension(80,50));
+        bottomPanel.add(inputField);
+        bottomPanel.add(sendBtn);
         setLayout(new BorderLayout(2,2));
         add(new JScrollPane(messageList), BorderLayout.CENTER);
-        add(inputField,BorderLayout.SOUTH);
+        //add(inputField,BorderLayout.SOUTH);
+        add(bottomPanel,BorderLayout.SOUTH);
 
         this.inputField.addActionListener(new ActionListener() {
             @Override

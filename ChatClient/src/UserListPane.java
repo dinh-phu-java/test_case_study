@@ -34,8 +34,8 @@ public class UserListPane extends JPanel implements UserStatusListener {
                     JFrame msgFrame= new JFrame("Message: "+login);
                     Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
                     msgFrame.setIconImage(img);
-                    msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    msgFrame.setSize(500,500);
+                    msgFrame.setSize(550,500);
+                    msgFrame.setResizable(false);
                     msgFrame.getContentPane().add(messagePaneAll,BorderLayout.CENTER);
                     msgFrame.setVisible(true);
                 }
@@ -52,7 +52,8 @@ public class UserListPane extends JPanel implements UserStatusListener {
                     Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
                     msgFrame.setIconImage(img);
                     msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    msgFrame.setSize(500,500);
+                    msgFrame.setSize(550,500);
+                    msgFrame.setResizable(false);
                     msgFrame.getContentPane().add(messagePane,BorderLayout.CENTER);
                     msgFrame.setVisible(true);
                 }
