@@ -18,6 +18,30 @@ public class UserListPane extends JPanel implements UserStatusListener {
         setLayout(new BorderLayout());
         add(new JScrollPane(userListUI),BorderLayout.CENTER);
 
+        JLabel group= new JLabel("Group");
+        group.setPreferredSize(new Dimension(400,50));
+        group.setBackground(new Color(206, 255, 195));
+        setLayout(new BorderLayout());
+        add(new JScrollPane(userListUI),BorderLayout.CENTER);
+        add(group,BorderLayout.SOUTH);
+
+        group.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent ev){
+                if(ev.getClickCount()>1){
+                    String login= userListUI.getSelectedValue();
+                    MessagePaneAll messagePaneAll=new MessagePaneAll(client,login);
+                    JFrame msgFrame= new JFrame("Message: "+login);
+                    Image img=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
+                    msgFrame.setIconImage(img);
+                    msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    msgFrame.setSize(500,500);
+                    msgFrame.getContentPane().add(messagePaneAll,BorderLayout.CENTER);
+                    msgFrame.setVisible(true);
+                }
+            }
+        });
+
         userListUI.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent ev){

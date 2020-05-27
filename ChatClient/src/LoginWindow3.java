@@ -1,16 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
-public class LoginWindow extends JFrame {
+public class LoginWindow3 extends JFrame {
     private final ChatClient client;
     private JTextField loginField = new JTextField(20);
     private JPasswordField passwordField = new JPasswordField(20);
     private JButton loginButton = new JButton("Login");
     private JButton registerButton = new JButton("Register");
 
-    public LoginWindow() {
+    public LoginWindow3() {
         super("Window Login");
 
         this.client = new ChatClient();
@@ -94,7 +97,7 @@ public class LoginWindow extends JFrame {
     public void callLoginWindow(){
         this.logoff();
         this.setVisible(false);
-        LoginWindow loginWindow=new LoginWindow();
+        LoginWindow3 loginWindow=new LoginWindow3();
         loginWindow.setVisible(true);
     }
     public void logoff() {
@@ -166,7 +169,7 @@ public class LoginWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        LoginWindow loginWindow = new LoginWindow();
+        LoginWindow3 loginWindow = new LoginWindow3();
         loginWindow.setVisible(true);
     }
 }

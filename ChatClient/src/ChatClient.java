@@ -167,6 +167,12 @@ public class ChatClient {
         this.send(cmd);
     }
 
+    public void msgAll(String msgBody){
+
+        String cmd="msg "+"all "+msgBody+"\n\r";
+        this.send(cmd);
+    }
+
     public void addUserStatusListener(UserStatusListener listener) {
         this.userStatusListeners.add(listener);
     }

@@ -115,15 +115,26 @@ public class ServerWorker extends Thread {
     private void handleDirectMessage(String[] tokensMsg) {
         String sendToUser = tokensMsg[1];
         String bodyMessage = tokensMsg[2];
+
         ArrayList<ServerWorker> workerList = this.server.getWorkerList();
-        for (ServerWorker worker : workerList) {
-            if (worker.getUser() != null) {
-                if (sendToUser.equalsIgnoreCase(worker.getUser())) {
-                    String msg = "msg " + this.user+" " + bodyMessage;
-                    worker.sendMessage(msg);
+        if("all".equals(sendToUser)){
+            for (ServerWorker worker : workerList) {
+                if (worker.getUser() != null) {
+                        String msg = "msg " + this.user+" " + bodyMessage;
+                        worker.sendMessage(msg);
+                }
+            }
+        }else{
+            for (ServerWorker worker : workerList) {
+                if (worker.getUser() != null) {
+                    if (sendToUser.equalsIgnoreCase(worker.getUser())) {
+                        String msg = "msg " + this.user+" " + bodyMessage;
+                        worker.sendMessage(msg);
+                    }
                 }
             }
         }
+
     }
     public boolean checkUserAndPassword(String userInput,String passwordInput){
         try{
