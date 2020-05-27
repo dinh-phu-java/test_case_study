@@ -30,7 +30,6 @@ public class MessagePane extends JPanel implements MessageListener {
                     listModel.addElement("You: "+text);
                     inputField.setText("");
                 }
-
             }
         });
     }
