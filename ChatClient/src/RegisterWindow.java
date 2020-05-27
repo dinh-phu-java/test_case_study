@@ -20,7 +20,7 @@ public class RegisterWindow extends JFrame {
     public RegisterWindow(){
         super("Register Users");
 
-        this.client = new ChatClient("localhost", 9000);
+        this.client = new ChatClient();
         this.client.connect();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,6 +36,7 @@ public class RegisterWindow extends JFrame {
                callLoginWindow();
            }
         });
+
         JPanel westPanel= new JPanel(new GridLayout(4,1,5,5));
         JLabel fullNameLabel = new JLabel("Full Name");
         JLabel userLabel = new JLabel("User Name");

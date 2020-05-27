@@ -24,14 +24,11 @@ public class Server extends Thread{
             while (true){
                 System.out.println("wating for connecting");
                 Socket clientSocket=serverSocket.accept();
-                System.out.println("Connected Successfull with: "+clientSocket.getRemoteSocketAddress());
+                System.out.println("Connected Successful with: "+clientSocket.getRemoteSocketAddress());
                 ServerWorker worker = new ServerWorker(this,clientSocket);
                 workerList.add(worker);
                 System.out.println("Worker List: "+workerList.size());
                 worker.start();
-
-
-
             }
         }catch (Exception e){
             e.printStackTrace();

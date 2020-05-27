@@ -48,4 +48,5 @@ public class UserListPane extends JPanel implements UserStatusListener {
     public void offline(String login) {
         userListModel.removeElement(login);
     }
+
 }

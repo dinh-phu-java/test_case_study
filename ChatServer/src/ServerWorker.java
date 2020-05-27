@@ -64,10 +64,12 @@ public class ServerWorker extends Thread {
                 }else if("check_register".equalsIgnoreCase(cmd)){
                     String[] tokensMsg = StringUtils.split(line, null, 4);
                     handleCheckRegisterUser(tokensMsg);
+                }else if("group".equalsIgnoreCase(cmd)){
+                    String[] tokensMsg = StringUtils.split(line, null, 2);
+                    handleGroup(tokensMsg);
                 }
                 else {
                     if (getUser() != null) {
-//
                         sendMessage(line);
                     } else {
                         String msg = "Please Login!";
@@ -77,6 +79,9 @@ public class ServerWorker extends Thread {
             }
         }
         clientSocket.close();
+    }
+    public void handleGroup(String[] tokensMsg){
+
     }
     public void handleCheckRegisterUser(String[] tokensMsg){
         if(tokensMsg!=null && tokensMsg.length==4){

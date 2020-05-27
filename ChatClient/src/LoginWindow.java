@@ -13,7 +13,7 @@ public class LoginWindow extends JFrame {
     public LoginWindow() {
         super("Window Login");
 
-        this.client = new ChatClient("localhost", 9000);
+        this.client = new ChatClient();
         this.client.connect();
 
         setLayout(new GridLayout(3, 1, 5, 5));
@@ -125,6 +125,31 @@ public class LoginWindow extends JFrame {
                         logoff();
                     }
                 });
+
+                JMenu messengerMenu = new JMenu("Messenger" );
+                JMenuItem profile_setting = new JMenuItem("Profile Setting" );
+//                    profile_setting. addActionListener(this);
+                messengerMenu. add(profile_setting);
+                JMenuItem layout_setting = new JMenuItem( "Layout Setting" );
+//                    layout_setting. addActionListener(this);
+                messengerMenu. add(layout_setting);
+                JMenu statusMenu = new JMenu("Status" );
+                JMenuItem onlineStatus = new JMenuItem("Online" );
+//                    onlineStatus. addActionListener(this);
+                statusMenu. add(onlineStatus);
+                JMenuItem offlineStatus = new JMenuItem("Offline" );
+//                    offlineStatus. addActionListener(this);
+                statusMenu. add(offlineStatus);
+
+                JMenuItem busyStatus = new JMenuItem("Busy" );
+//                    busyStatus. addActionListener(this);
+                statusMenu. add(busyStatus);
+                // And finally build a JMenuBar for the application
+                JMenuBar mainBar = new JMenuBar();
+                mainBar. add(messengerMenu);
+                mainBar. add(statusMenu);
+
+                frame.setJMenuBar(mainBar);
                 frame.setVisible(true);
 
                 this.setVisible(false);

@@ -4,10 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatClient {
+    private final String SERVER_ADDRESS="localhost";
+    private final int SERVER_PORT=9000;
+
     private String serverName;
     private int serverPort;
     private InputStream inputStream;
@@ -18,9 +22,9 @@ public class ChatClient {
     private ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>();
     private ArrayList<MessageListener> messageListeners = new ArrayList<>();
 
-    public ChatClient(String serverName, int serverPort) {
-        this.serverName = serverName;
-        this.serverPort = serverPort;
+    public ChatClient() {
+        this.serverName = SERVER_ADDRESS;
+        this.serverPort = SERVER_PORT;
     }
 
     private InputStream getInputStream() {
@@ -34,8 +38,6 @@ public class ChatClient {
     private Socket getSocket() {
         return this.socket;
     }
-
-
 
     public boolean login(String user, String password) throws IOException {
 
@@ -131,14 +133,12 @@ public class ChatClient {
         }
     }
 
-
-
     public boolean connect() {
         try {
             this.socket = new Socket(serverName, serverPort);
             this.inputStream = socket.getInputStream();
             this.outputStream = socket.getOutputStream();
-            this.bufferedRead = new BufferedReader(new InputStreamReader(this.inputStream));
+            this.bufferedRead = new BufferedReader(new InputStreamReader(this.inputStream, StandardCharsets.UTF_8));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
