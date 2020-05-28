@@ -32,7 +32,10 @@ public class LoginWindowVer2 extends JFrame {
 		this.client=new ChatClient();
 		this.client.connect();
 		setBackground(Color.WHITE);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Image frameIcon=Toolkit.getDefaultToolkit().getImage("icons/codegym.png");
+		setIconImage(frameIcon);
 		setBounds(100, 100, 729, 476);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -94,13 +97,13 @@ public class LoginWindowVer2 extends JFrame {
 		
 		Button registerButton = new Button("SignUp");
 		registerButton.setForeground(Color.WHITE);
-		registerButton.setBackground(new Color(241, 57, 83));
+		registerButton.setBackground(new Color(191, 75, 29));
 		registerButton.setBounds(395, 363, 283, 36);
 		contentPane.add(registerButton);
 
 		Button loginButton = new Button("Login");
 		loginButton.setForeground(Color.WHITE);
-		loginButton.setBackground(new Color(71, 112, 186));
+		loginButton.setBackground(new Color(49, 67, 212));
 		loginButton.setBounds(395, 303, 283, 36);
 		contentPane.add(loginButton);
 
