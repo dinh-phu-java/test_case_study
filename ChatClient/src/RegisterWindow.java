@@ -141,7 +141,7 @@ public class RegisterWindow extends JFrame {
     public void callLoginWindow(){
         this.setVisible(false);
         this.client.logoff();
-        LoginWindow loginWindow=new LoginWindow();
+        LoginWindowVer2 loginWindow=new LoginWindowVer2();
         loginWindow.setVisible(true);
     }
 
