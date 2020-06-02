@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatClient {
-    private final String SERVER_ADDRESS="localhost";
+    private final String SERVER_ADDRESS="192.168.2.27";
     private final int SERVER_PORT=9000;
 
     private String serverName;

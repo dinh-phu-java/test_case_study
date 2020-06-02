@@ -106,7 +106,6 @@ public class RegisterDisplay extends JFrame {
 
 		userText = new JTextField();
 		userText.setColumns(10);
-		userText.setText("userText");
 		userText.setBounds(395, 157, 283, 36);
 		contentPane.add(userText);
 
@@ -126,7 +125,6 @@ public class RegisterDisplay extends JFrame {
 
 		fullNameText = new JTextField();
 		fullNameText.setBounds(395, 83, 283, 36);
-		fullNameText.setText("full Name Text");
 		contentPane.add(fullNameText);
 		fullNameText.setColumns(10);
 

@@ -1,48 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <information>
 <user>
-<fullname>Nguyen Phu</fullname>
-<username>phu</username>
-<password>phu</password>
-</user>
-<user>
-<fullname>Hong Lam</fullname>
-<username>honglam</username>
-<password>123</password>
-</user>
-<user>
 <fullname>Viet Hung</fullname>
 <username>hungviet</username>
 <password>123</password>
 </user>
 <user>
-<fullname>vuvu</fullname>
-<username>vuvu</username>
-<password>123</password>
-</user>
-<user>
-<fullname>Nguyen Van Dat</fullname>
-<username>kira</username>
-<password>12345678</password>
-</user>
-<user>
-<fullname>Nguy?n Anh S?n</fullname>
-<username>nguyenanhson</username>
+<fullname>nguyenanhson</fullname>
+<username>son</username>
 <password>123456</password>
 </user>
 <user>
-<fullname>Vu Van Lien</fullname>
-<username>lienlien</username>
+<fullname>Dinh Phu</fullname>
+<username>dinhphu</username>
 <password>123</password>
 </user>
 <user>
-<fullname>sondien</fullname>
-<username>sondien</username>
-<password>123</password>
-</user>
-<user>
-<fullname>Tao la Son Dao</fullname>
-<username>sondao</username>
-<password>123</password>
+<fullname>son</fullname>
+<username>nguyenanhson</username>
+<password>123456</password>
 </user>
 </information>
